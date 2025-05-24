@@ -1,0 +1,177 @@
+package com.example.biblivent.ui.theme.screens
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.biblivent.R
+
+@Composable
+fun AccueilScreen(
+    onNavigateToDetail: () -> Unit
+) {
+    val scrollState = rememberScrollState()
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(scrollState)
+            .background(Color.White)
+    ) {
+        Header()
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Box(modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp)) {
+            Button(
+                onClick = { /* Action du bouton */ },
+                modifier = Modifier.align(Alignment.CenterStart)
+            ) {
+                Text("Ajouter un livre")
+            }
+        }
+
+        Spacer(modifier = Modifier.height(32.dp))
+
+        FeaturedBookCard()
+
+        Spacer(modifier = Modifier.height(32.dp))
+
+        Text(
+            text = "Récent",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(horizontal = 24.dp)
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        RecentBooksRow()
+
+        Spacer(modifier = Modifier.height(40.dp))
+    }
+}
+
+@Composable
+fun Header() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.primary)
+            .padding(vertical = 32.dp, horizontal = 32.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.logo),
+            contentDescription = "Logo de l'application",
+            modifier = Modifier.size(140.dp) // Logo encore plus grand
+        )
+
+        Spacer(modifier = Modifier.width(20.dp))
+
+        Text(
+            text = "Bibl'Invent",
+            color = Color.White,
+            fontSize = 34.sp,
+            fontWeight = FontWeight.ExtraBold
+        )
+    }
+}
+
+@Composable
+fun FeaturedBookCard() {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(24.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.le_cygne_noir),
+                contentDescription = "Livre en vedette",
+                modifier = Modifier
+                    .size(160.dp)
+                    .padding(end = 18.dp),
+                contentScale = ContentScale.Fit
+            )
+
+            Column {
+                Text(
+                    text = "Le Cygne Noir",  // Titre du livre
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+
+                Text(
+                    text = "Une enfance brisée,\n" +
+                            "Un incendie dévastateur,\n" +
+                            "Une vie emplie de mystères et de leurres,\n" +
+                            "Un amour dévasté,\n" +
+                            "Un secret bien gardé. \n" +
+                            "Aventurez-vous dans cette histoire hors du commun où le mensonge est de mise et la vérité fortuite.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(bottom = 12.dp)
+                )
+
+                Text(
+                    text = "Auteur : Clara Tournay",  // Auteur
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.Black
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun RecentBooksRow() {
+    val recentBooks = listOf(
+        "Par-delà l'autre rive" to R.drawable.autre_rive,
+        "Regarde-moi" to R.drawable.regarde_moi,
+        "Ne me jugez pas" to R.drawable.jugez_pas
+    )
+
+    LazyRow(
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(recentBooks) { (title, imageRes) ->
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(
+                    painter = painterResource(id = imageRes),
+                    contentDescription = title,
+                    modifier = Modifier
+                        .size(100.dp)
+                        .padding(bottom = 8.dp),
+                    contentScale = ContentScale.Fit
+                )
+
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+        }
+    }
+}
