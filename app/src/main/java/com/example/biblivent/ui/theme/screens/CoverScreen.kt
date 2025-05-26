@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.sp
 import com.example.biblivent.ui.theme.items.Header
 import java.io.InputStream
 import android.graphics.BitmapFactory
-import com.example.biblivent.ui.theme.ColorBase
 import com.example.biblivent.ui.theme.items.StepBar
 
 @Composable
@@ -43,7 +42,7 @@ fun CoverScreen(onBack: () -> Unit, onValidate: () -> Unit) {
         Header()
 
         IconButton(onClick = onBack, modifier = Modifier.padding(start = 8.dp)) {
-            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Retour", tint = ColorBase)
+            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Retour", tint = MaterialTheme.colorScheme.primary)
         }
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -76,7 +75,7 @@ fun CoverScreen(onBack: () -> Unit, onValidate: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(24.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = ColorBase)
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
         ) {
             Text("Valider")
         }

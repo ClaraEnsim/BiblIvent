@@ -3,6 +3,7 @@ package com.example.biblivent.ui.theme.items
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,7 +22,7 @@ fun StepBar(currentStep: Int) {
                 modifier = Modifier
                     .size(16.dp)
                     .background(
-                        color = if (i <= currentStep) Color(0xFF1E88E5) else Color.Gray,
+                        color = if (i <= currentStep) MaterialTheme.colorScheme.primary else Color.Gray,
                         shape = CircleShape
                     )
             )

@@ -6,6 +6,8 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -16,7 +18,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.biblivent.ui.theme.ColorBase
 import com.example.biblivent.ui.theme.items.Header
 import com.example.biblivent.ui.theme.items.StepBar
 
@@ -43,7 +44,7 @@ fun DepotScreen(onBack: () -> Unit, onValidate: () -> Unit) {
         Header()
 
         IconButton(onClick = onBack, modifier = Modifier.padding(start = 8.dp)) {
-            Icon(Icons.Default.ArrowBack, contentDescription = "Retour", tint = ColorBase)
+            Icon(Icons.Default.ArrowBack, contentDescription = "Retour", tint = MaterialTheme.colorScheme.primary)
         }
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -60,8 +61,8 @@ fun DepotScreen(onBack: () -> Unit, onValidate: () -> Unit) {
         ) {
             Text(
                 text = selectedFileName ?: "Dépôt fichier PDF",
-                fontSize = 20.sp,
-                color = Color(0xFF1E88E5),
+                fontSize = 30.sp,
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.clickable {
                     launcher.launch(arrayOf("application/pdf"))
                 }
@@ -73,7 +74,7 @@ fun DepotScreen(onBack: () -> Unit, onValidate: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(24.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = ColorBase)
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
         ) {
             Text("Valider")
         }
