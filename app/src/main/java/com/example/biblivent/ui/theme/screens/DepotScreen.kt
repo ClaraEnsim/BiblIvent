@@ -6,15 +6,12 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,7 +19,14 @@ import com.example.biblivent.ui.theme.items.Header
 import com.example.biblivent.ui.theme.items.StepBar
 
 @Composable
-fun DepotScreen(onBack: () -> Unit, onValidate: () -> Unit) {
+fun DepotScreen(
+    onBack: () -> Unit,
+    onValidate: () -> Unit,
+    onNavigateToDepot: () -> Unit,
+    onNavigateToCover: () -> Unit,
+    onNavigateToDetails: () -> Unit,
+    onNavigateToEditors: () -> Unit
+) {
     val context = LocalContext.current
     var selectedFileName by remember { mutableStateOf<String?>(null) }
 
@@ -43,13 +47,20 @@ fun DepotScreen(onBack: () -> Unit, onValidate: () -> Unit) {
     Column(modifier = Modifier.fillMaxSize()) {
         Header()
 
-        IconButton(onClick = onBack, modifier = Modifier.padding(start = 8.dp)) {
+        IconButton(onClick = onBack, modifier = Modifier.padding(start = 10.dp)) {
             Icon(Icons.Default.ArrowBack, contentDescription = "Retour", tint = MaterialTheme.colorScheme.primary)
         }
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        StepBar(currentStep = 1)
+        StepBar(currentStep = 1, onStepClick = { step ->
+            when (step) {
+                1 -> onNavigateToDepot()
+                2 -> onNavigateToCover()
+                3 -> onNavigateToDetails()
+                4 -> onNavigateToEditors()
+            }
+        })
 
         Spacer(modifier = Modifier.height(32.dp))
 
@@ -76,7 +87,11 @@ fun DepotScreen(onBack: () -> Unit, onValidate: () -> Unit) {
                 .padding(24.dp),
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
         ) {
-            Text("Valider")
+            Text(
+                text = "Valider",
+                fontSize = 25.sp,
+                color = MaterialTheme.colorScheme.onPrimary
+            )
         }
     }
 }

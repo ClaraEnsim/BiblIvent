@@ -11,9 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.biblivent.ui.theme.BiblIventTheme
-import com.example.biblivent.ui.theme.screens.AccueilScreen
-import com.example.biblivent.ui.theme.screens.DepotScreen
-import com.example.biblivent.ui.theme.screens.CoverScreen
+import com.example.biblivent.ui.theme.screens.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,18 +40,52 @@ class MainActivity : ComponentActivity() {
                         // Dépôt
                         composable("depot") {
                             DepotScreen(
-                                onBack = { navController.popBackStack() },
-                                onValidate = { navController.navigate("cover") }
+                                onBack = { navController.navigate("accueil") },
+                                onValidate = { navController.navigate("cover") },
+                                onNavigateToDepot = { navController.navigate("depot") },
+                                onNavigateToCover = { navController.navigate("cover") },
+                                onNavigateToDetails = { navController.navigate("detail") },
+                                onNavigateToEditors = { navController.navigate("editors") }
                             )
                         }
 
                         // Couverture
                         composable("cover") {
                             CoverScreen(
-                                onBack = { navController.popBackStack() },
-                                onValidate = {/*mettre le navController*/}
+                                onBack = { navController.navigate("accueil") },
+                                onValidate = { navController.navigate("detail") },
+                                onNavigateToDepot = { navController.navigate("depot") },
+                                onNavigateToCover = { navController.navigate("cover") },
+                                onNavigateToDetails = { navController.navigate("detail") },
+                                onNavigateToEditors = { navController.navigate("editors") }
                             )
                         }
+
+                        // Caractéristiques
+                        composable("detail") {
+                            DetailScreen(
+                                onBack = { navController.navigate("accueil") },
+                                onValidate = { navController.navigate("editors") },
+                                onNavigateToDepot = { navController.navigate("depot") },
+                                onNavigateToCover = { navController.navigate("cover") },
+                                onNavigateToDetails = { navController.navigate("detail") },
+                                onNavigateToEditors = { navController.navigate("editors") }
+                            )
+                        }
+
+                        // Maisons d'édition intéressées
+                        composable("editors") {
+                            EditorScreen(
+                                onBack = { navController.navigate("accueil") },
+                                onValidate = {/**/},
+                                onNavigateToDepot = { navController.navigate("depot") },
+                                onNavigateToCover = { navController.navigate("cover") },
+                                onNavigateToDetails = { navController.navigate("detail") },
+                                onNavigateToEditors = { navController.navigate("editors") }
+                            )
+                        }
+
+                        // Ajoute ici la page finale si nécessaire
                     }
                 }
             }

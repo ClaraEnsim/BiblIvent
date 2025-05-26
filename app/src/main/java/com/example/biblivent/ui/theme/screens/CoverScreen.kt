@@ -22,10 +22,19 @@ import androidx.compose.ui.unit.sp
 import com.example.biblivent.ui.theme.items.Header
 import java.io.InputStream
 import android.graphics.BitmapFactory
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import com.example.biblivent.ui.theme.items.StepBar
 
 @Composable
-fun CoverScreen(onBack: () -> Unit, onValidate: () -> Unit) {
+fun CoverScreen(
+    onBack: () -> Unit,
+    onValidate: () -> Unit,
+    onNavigateToDepot: () -> Unit,
+    onNavigateToCover: () -> Unit,
+    onNavigateToDetails: () -> Unit,
+    onNavigateToEditors: () -> Unit
+) {
     val context = LocalContext.current
     var imageUri1 by remember { mutableStateOf<Uri?>(null) }
     var imageUri2 by remember { mutableStateOf<Uri?>(null) }
@@ -38,46 +47,67 @@ fun CoverScreen(onBack: () -> Unit, onValidate: () -> Unit) {
         if (uri != null) imageUri2 = uri
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        Header()
-
-        IconButton(onClick = onBack, modifier = Modifier.padding(start = 8.dp)) {
-            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Retour", tint = MaterialTheme.colorScheme.primary)
-        }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        StepBar(currentStep = 1)
-
-        Spacer(modifier = Modifier.height(32.dp))
-
+    Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp)
-                .weight(1f),
-            verticalArrangement = Arrangement.SpaceEvenly,
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxSize()
+                .padding(bottom = 88.dp) // espace pour le bouton
+                .verticalScroll(rememberScrollState())
         ) {
-            ImageBox(
-                uri = imageUri1,
-                onClick = { launcher1.launch(arrayOf("image/png")) }
-            )
+            Header()
 
-            ImageBox(
-                uri = imageUri2,
-                onClick = { launcher2.launch(arrayOf("image/png")) }
-            )
+            IconButton(onClick = onBack, modifier = Modifier.padding(start = 10.dp)) {
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Retour", tint = MaterialTheme.colorScheme.primary)
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            StepBar(currentStep = 2, onStepClick = { step ->
+                when (step) {
+                    1 -> onNavigateToDepot()
+                    2 -> onNavigateToCover()
+                    3 -> onNavigateToDetails()
+                    4 -> onNavigateToEditors()
+                }
+            })
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp),
+                verticalArrangement = Arrangement.spacedBy(32.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                ImageBox(
+                    uri = imageUri1,
+                    onClick = { launcher1.launch(arrayOf("image/png")) }
+                )
+
+                ImageBox(
+                    uri = imageUri2,
+                    onClick = { launcher2.launch(arrayOf("image/png")) }
+                )
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
         }
 
+        // Bouton fixé en bas
         Button(
             onClick = onValidate,
             modifier = Modifier
+                .align(Alignment.BottomCenter)
                 .fillMaxWidth()
                 .padding(24.dp),
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
         ) {
-            Text("Valider")
+            Text(
+                text = "Valider",
+                fontSize = 25.sp,
+                color = MaterialTheme.colorScheme.onPrimary
+            )
         }
     }
 }
@@ -99,24 +129,33 @@ fun ImageBox(uri: Uri?, onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .aspectRatio(2f / 3f) // Respecte le ratio 1024x1536
+            .aspectRatio(2f / 3f)
             .border(2.dp, Color.Gray)
-            .clickable(onClick = onClick),
+            .clickable(onClick = onClick)
+            .padding(8.dp),
         contentAlignment = Alignment.Center
     ) {
         if (bitmap != null) {
-            Image(
-                bitmap = bitmap!!.asImageBitmap(),
-                contentDescription = "Image sélectionnée",
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Fit
-            )
+            // Image limitée à l'intérieur de la box
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(4.dp)
+            ) {
+                Image(
+                    bitmap = bitmap!!.asImageBitmap(),
+                    contentDescription = "Image sélectionnée",
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Fit
+                )
+            }
         } else {
             Text(
                 text = "Déposer une image PNG",
-                color = Color(0xFF1E88E5),
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 16.sp
             )
         }
     }
 }
+
