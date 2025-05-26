@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.biblivent.R
+import com.example.biblivent.ui.theme.items.Header
 
 @Composable
 fun AccueilScreen(
@@ -37,7 +38,7 @@ fun AccueilScreen(
 
         Box(modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp)) {
             Button(
-                onClick = { /* Action du bouton */ },
+                onClick = { onNavigateToDetail() },
                 modifier = Modifier.align(Alignment.CenterStart)
             ) {
                 Text("Ajouter un livre")
@@ -62,32 +63,6 @@ fun AccueilScreen(
         RecentBooksRow()
 
         Spacer(modifier = Modifier.height(40.dp))
-    }
-}
-
-@Composable
-fun Header() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primary)
-            .padding(vertical = 32.dp, horizontal = 32.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.logo),
-            contentDescription = "Logo de l'application",
-            modifier = Modifier.size(140.dp) // Logo encore plus grand
-        )
-
-        Spacer(modifier = Modifier.width(20.dp))
-
-        Text(
-            text = "Bibl'Invent",
-            color = Color.White,
-            fontSize = 34.sp,
-            fontWeight = FontWeight.ExtraBold
-        )
     }
 }
 

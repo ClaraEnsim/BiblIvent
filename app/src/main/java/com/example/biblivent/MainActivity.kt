@@ -12,6 +12,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.biblivent.ui.theme.BiblIventTheme
 import com.example.biblivent.ui.theme.screens.AccueilScreen
+import com.example.biblivent.ui.theme.screens.DepotScreen
+import com.example.biblivent.ui.theme.screens.CoverScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,15 +30,29 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         startDestination = "accueil"
                     ) {
+                        // Accueil
                         composable("accueil") {
                             AccueilScreen(
                                 onNavigateToDetail = {
-                                    // navController.navigate("detail")
+                                    navController.navigate("depot")
                                 }
                             )
                         }
 
-                        // composable("detail") { DetailScreen() }
+                        // Dépôt
+                        composable("depot") {
+                            DepotScreen(
+                                onBack = { navController.popBackStack() },
+                                onValidate = { navController.navigate("cover") }
+                            )
+                        }
+
+                        // Couverture
+                        composable("cover") {
+                            CoverScreen(
+                                //onBack = { navController.popBackStack() }
+                            )
+                        }
                     }
                 }
             }
