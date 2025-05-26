@@ -50,7 +50,8 @@ class MainActivity : ComponentActivity() {
                         // Couverture
                         composable("cover") {
                             CoverScreen(
-                                //onBack = { navController.popBackStack() }
+                                onBack = { navController.popBackStack() },
+                                onValidate = {/*mettre le navController*/}
                             )
                         }
                     }
