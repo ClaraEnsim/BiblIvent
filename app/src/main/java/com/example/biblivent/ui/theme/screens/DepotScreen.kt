@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.biblivent.ui.theme.ColorBase
 import com.example.biblivent.ui.theme.items.Header
 import com.example.biblivent.ui.theme.items.StepBar
 
@@ -42,7 +43,7 @@ fun DepotScreen(onBack: () -> Unit, onValidate: () -> Unit) {
         Header()
 
         IconButton(onClick = onBack, modifier = Modifier.padding(start = 8.dp)) {
-            Icon(Icons.Default.ArrowBack, contentDescription = "Retour", tint = Color.Blue)
+            Icon(Icons.Default.ArrowBack, contentDescription = "Retour", tint = ColorBase)
         }
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -72,7 +73,7 @@ fun DepotScreen(onBack: () -> Unit, onValidate: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(24.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+            colors = ButtonDefaults.buttonColors(containerColor = ColorBase)
         ) {
             Text("Valider")
         }

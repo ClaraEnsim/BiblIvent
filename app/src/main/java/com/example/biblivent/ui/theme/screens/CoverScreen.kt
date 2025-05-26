@@ -15,12 +15,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.biblivent.ui.theme.items.Header
 import java.io.InputStream
 import android.graphics.BitmapFactory
+import com.example.biblivent.ui.theme.ColorBase
+import com.example.biblivent.ui.theme.items.StepBar
 
 @Composable
 fun CoverScreen(onBack: () -> Unit, onValidate: () -> Unit) {
@@ -40,10 +43,14 @@ fun CoverScreen(onBack: () -> Unit, onValidate: () -> Unit) {
         Header()
 
         IconButton(onClick = onBack, modifier = Modifier.padding(start = 8.dp)) {
-            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Retour", tint = Color.Blue)
+            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Retour", tint = ColorBase)
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(12.dp))
+
+        StepBar(currentStep = 1)
+
+        Spacer(modifier = Modifier.height(32.dp))
 
         Column(
             modifier = Modifier
@@ -69,7 +76,7 @@ fun CoverScreen(onBack: () -> Unit, onValidate: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(24.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1E88E5))
+            colors = ButtonDefaults.buttonColors(containerColor = ColorBase)
         ) {
             Text("Valider")
         }
@@ -93,13 +100,18 @@ fun ImageBox(uri: Uri?, onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(180.dp)
+            .aspectRatio(2f / 3f) // Respecte le ratio 1024x1536
             .border(2.dp, Color.Gray)
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
         if (bitmap != null) {
-            Image(bitmap = bitmap!!.asImageBitmap(), contentDescription = "Image sélectionnée")
+            Image(
+                bitmap = bitmap!!.asImageBitmap(),
+                contentDescription = "Image sélectionnée",
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Fit
+            )
         } else {
             Text(
                 text = "Déposer une image PNG",
