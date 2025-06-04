@@ -57,7 +57,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
-    // Navigation Compose ✅
+    // Navigation Compose
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
     // Tests

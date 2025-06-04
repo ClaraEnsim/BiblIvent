@@ -77,7 +77,7 @@ class MainActivity : ComponentActivity() {
                         composable("editors") {
                             EditorScreen(
                                 onBack = { navController.navigate("accueil") },
-                                onValidate = {/**/},
+                                onValidate = {navController.navigate("update")},
                                 onNavigateToDepot = { navController.navigate("depot") },
                                 onNavigateToCover = { navController.navigate("cover") },
                                 onNavigateToDetails = { navController.navigate("detail") },
@@ -86,6 +86,11 @@ class MainActivity : ComponentActivity() {
                         }
 
                         // Ajoute ici la page finale si nécessaire
+                        composable("update") {
+                            UpdateScreen(
+                                onNavigateToDetail = { navController.navigate("depot")}
+                            )
+                        }
                     }
                 }
             }
