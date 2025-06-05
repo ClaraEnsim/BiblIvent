@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.biblivent.model.viewmodel.BookViewModel
 import com.example.biblivent.ui.theme.items.Header
 import com.example.biblivent.ui.theme.items.StepBar
 
@@ -27,7 +28,8 @@ fun DetailScreen(
     onNavigateToDepot: () -> Unit,
     onNavigateToCover: () -> Unit,
     onNavigateToDetails: () -> Unit,
-    onNavigateToEditors: () -> Unit
+    onNavigateToEditors: () -> Unit,
+    bookViewModel: BookViewModel
 ) {
     val title = remember { mutableStateOf(TextFieldValue()) }
     val subtitle = remember { mutableStateOf(TextFieldValue()) }
@@ -73,7 +75,15 @@ fun DetailScreen(
                 1 -> onNavigateToDepot()
                 2 -> onNavigateToCover()
                 3 -> onNavigateToDetails()
-                4 -> onNavigateToEditors()
+                4 -> {
+                    // Mise à jour du ViewModel avant la navigation
+                    bookViewModel.updateSelections(
+                        selectedTypes.toList(),
+                        selectedStyles.toList(),
+                        selectedPublics.toList()
+                    )
+                    onNavigateToEditors()
+                }
             }
         })
 
@@ -110,7 +120,7 @@ fun DetailScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            listOf("Roman", "BD", "Poésie").forEach {
+            listOf("Conte", "Nouvelle", "Poésie", "Roman", "Théâtre").forEach {
                 SelectableButton(it, selectedTypes.contains(it)) {
                     toggleSelection(it, selectedTypes)
                 }
@@ -123,7 +133,7 @@ fun DetailScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            listOf("Fantastique", "Historique", "Thriller").forEach {
+            listOf("Action", "Aventure", "Comédie","Drame", "Fantastique", "Horreur", "Romance", "Thriller").forEach {
                 SelectableButton(it, selectedStyles.contains(it)) {
                     toggleSelection(it, selectedStyles)
                 }
@@ -136,7 +146,7 @@ fun DetailScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            listOf("Enfants", "Ados", "Adultes").forEach {
+            listOf("Enfant", "Adolescent", "Adulte", "Tout public").forEach {
                 SelectableButton(it, selectedPublics.contains(it)) {
                     toggleSelection(it, selectedPublics)
                 }
@@ -163,15 +173,32 @@ fun DetailScreen(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(
-            onClick = onValidate,
-            enabled = isFormValid,
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary
-            )
+        // Bouton Valider affiché en bas
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            contentAlignment = Alignment.BottomCenter
         ) {
-            Text("Valider", fontSize = 18.sp, color = MaterialTheme.colorScheme.onPrimary)
+            Button(
+                onClick = {
+                    // Met à jour les sélections dans le ViewModel
+                    bookViewModel.updateSelections(
+                        selectedTypes.toList(),
+                        selectedStyles.toList(),
+                        selectedPublics.toList()
+                    )
+                    // Navigue vers l'écran suivant
+                    onNavigateToEditors()
+                },
+                enabled = isFormValid,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                )
+            ) {
+                Text("Valider", fontSize = 18.sp, color = MaterialTheme.colorScheme.onPrimary)
+            }
         }
     }
 }

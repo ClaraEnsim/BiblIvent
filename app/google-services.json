@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "456585629333",
+    "project_id": "bibl-invent",
+    "storage_bucket": "bibl-invent.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456585629333:android:41d0732ccb2ed9764d559c",
+        "android_client_info": {
+          "package_name": "com.example.biblivent"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2SSRhoDg8b7DUUotm8_fWrAaCPZ5v04s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.biblivent.model.viewmodel.BookViewModel
 import com.example.biblivent.ui.theme.BiblIventTheme
 import com.example.biblivent.ui.theme.screens.*
 
@@ -22,6 +24,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    val bookViewModel: BookViewModel = viewModel()
+
                     val navController = rememberNavController()
 
                     NavHost(
@@ -69,7 +73,8 @@ class MainActivity : ComponentActivity() {
                                 onNavigateToDepot = { navController.navigate("depot") },
                                 onNavigateToCover = { navController.navigate("cover") },
                                 onNavigateToDetails = { navController.navigate("detail") },
-                                onNavigateToEditors = { navController.navigate("editors") }
+                                onNavigateToEditors = { navController.navigate("editors") },
+                                bookViewModel = bookViewModel
                             )
                         }
 
@@ -81,7 +86,8 @@ class MainActivity : ComponentActivity() {
                                 onNavigateToDepot = { navController.navigate("depot") },
                                 onNavigateToCover = { navController.navigate("cover") },
                                 onNavigateToDetails = { navController.navigate("detail") },
-                                onNavigateToEditors = { navController.navigate("editors") }
+                                onNavigateToEditors = { navController.navigate("editors") },
+                                bookViewModel = bookViewModel
                             )
                         }
 
