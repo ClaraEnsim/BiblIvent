@@ -47,6 +47,8 @@ android {
 }
 
 dependencies {
+
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -60,6 +62,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation("com.google.firebase:firebase-analytics")
     // Firestore KTX (obligatoire pour accéder à FirebaseFirestore et getString)
+
     implementation("com.google.firebase:firebase-firestore-ktx")
 
 // Coroutines pour Firebase (obligatoire pour .await())

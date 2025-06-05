@@ -12,7 +12,7 @@ object MaisonEditionRepository {
         selectedStyles: List<String>,
         selectedPublics: List<String>
     ): List<MaisonEdition> {
-        val snapshot = db.collection("maisons_edition").get().await()
+        val snapshot = db.collection("maison_edition").get().await()
 
         val cleanedSelectedTypes = selectedTypes.map { it.trim().lowercase() }
         val cleanedSelectedStyles = selectedStyles.map { it.trim().lowercase() }

@@ -120,7 +120,7 @@ fun DetailScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            listOf("Conte", "Nouvelle", "Poésie", "Roman", "Théâtre").forEach {
+            listOf("Conte", "Nouvelle", "Poésie", "Roman").forEach {
                 SelectableButton(it, selectedTypes.contains(it)) {
                     toggleSelection(it, selectedTypes)
                 }
@@ -133,7 +133,7 @@ fun DetailScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            listOf("Action", "Aventure", "Comédie","Drame", "Fantastique", "Horreur", "Romance", "Thriller").forEach {
+            listOf("Action", "Comédie", "Drame","Horreur").forEach {
                 SelectableButton(it, selectedStyles.contains(it)) {
                     toggleSelection(it, selectedStyles)
                 }

@@ -82,10 +82,11 @@ fun EditorScreen(
                     Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
                         Text(
                             text = maison.nom,
-                            style = MaterialTheme.typography.titleMedium,
+                            style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.primary
                         )
                         Spacer(modifier = Modifier.height(4.dp))
+                        Text(text = maison.description)
                         Text(
                             text = "Genres : ${maison.type.joinToString(", ")}",
                             style = MaterialTheme.typography.bodySmall
